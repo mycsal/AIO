@@ -1,16 +1,7 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+// Minimal flat config. Next.js' bundled lint config was removed during the
+// Rsbuild migration; a fuller rule set can be reintroduced later if desired.
+export default [
+  {
+    ignores: ['dist/**', 'node_modules/**', '.next/**'],
+  },
 ];
-
-export default eslintConfig;

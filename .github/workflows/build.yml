@@ -1,15 +1,6 @@
 name: Build Addon
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'packages/**'
-      - 'package-lock.json'
-      - 'package.json'
-      - 'tsconfig.json'
-      - 'tsconfig.base.json'
   pull_request:
     branches:
       - main
@@ -24,13 +15,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: '22.x'
+          node-version: 24
 
+      - name: Install corepack
+        run: corepack enable
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Build Addon
-        run: npm run build
+        run: pnpm run build
